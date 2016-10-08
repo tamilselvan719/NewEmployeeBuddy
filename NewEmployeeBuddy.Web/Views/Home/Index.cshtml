@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+
+@*-- Main Section with two sub-sections divided using 'col-lg-' ratio --*@
+<div class="container-fluid">
+    @*-- Login Form --*@
+    <div class="col-lg-3">
+        @using (Html.BeginForm("Index", "Employee", new { @class = "form_bg" }))
+        {
+            <h2 class="text-muted">Enter Credentials</h2>
+
+            <div class="form-group">
+                <input type="text" class="form-control" id="txtUsername" placeholder="Username/Employee ID" required>
+            </div>
+
+            <div class="form-group">
+                <input type="password" class="form-control" id="txtPassword" placeholder="Password" required>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-default glyphicon-lock" id="btnLogin">Login</button>
+            </div>
+        }
+    </div>
+
+    @*-- Image Banner [Source - https://www.pexels.com/photo/people-crowd-walking-9816/] --*@
+    <div class="col-lg-9">
+        <img class="img-thumbnail" src="~/Content/images/pexels-photo-9816.jpeg">
+    </div>
+
+</div>
+    

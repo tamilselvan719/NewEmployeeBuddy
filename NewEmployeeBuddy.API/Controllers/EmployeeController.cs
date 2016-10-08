@@ -10,7 +10,7 @@ using NewEmployeeBuddy.Common.DataTransferObjects;
 
 namespace NewEmployeeBuddy.API.Controllers
 {
-    public class EmployeeController : ApiController
+    public class EmployeeController : ApiController 
     {
         private static readonly NewEmployeeDbContext _context = new NewEmployeeDbContext();
         private readonly IRepository<NewEmployee> _repository;
