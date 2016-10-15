@@ -6,15 +6,18 @@ using System.Threading.Tasks;
 
 namespace NewEmployeeBuddy.Data.RepositoryPattern
 {
-    //A generic repository which takes a Model as class and operates accordingly
+    /// <summary>
+    /// A generic repository interface which takes a Model as class and operates accordingly.
+    /// </summary>
+    /// <typeparam name="T">T is any entity or data model class</typeparam>
     public interface IRepository<T> where T : class
     {
-        IQueryable<T> GetAll();
-        T GetById(int id);
-        void Add(T entity);
-        void Update(T entity);
-        void Delete(T entity);
-        void DeleteById(int id);
+        IEnumerable<T> GetAll();
+        T GetById(string id);
+        bool Add(T entity);
+        bool Update(T entity);
+        bool Delete(T entity);
+        bool DeleteById(string id);
         void Save();
     }
 }

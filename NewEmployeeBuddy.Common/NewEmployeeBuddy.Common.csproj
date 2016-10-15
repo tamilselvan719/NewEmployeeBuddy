@@ -54,7 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataTransferObjects\EmployeeRequest.cs" />
-    <Compile Include="DataTransferObjects\EmployeeResponse.cs" />
+    <Compile Include="DataTransferObjects\Employee.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

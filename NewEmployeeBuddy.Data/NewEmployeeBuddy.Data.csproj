@@ -53,9 +53,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\NewEmployee.cs" />
+    <Compile Include="Entities\BaseEntities\EntityBase.cs" />
+    <Compile Include="Entities\NewEmployee.cs" />
     <Compile Include="DataContext\NewEmployeeDbContext.cs" />
+    <Compile Include="Migrations\201610150631340_Initial.cs" />
+    <Compile Include="Migrations\201610150631340_Initial.Designer.cs">
+      <DependentUpon>201610150631340_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepositoryPattern\EmployeeRepository.cs" />
     <Compile Include="RepositoryPattern\Interfaces\IRepository.cs" />
@@ -64,6 +69,11 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201610150631340_Initial.resx">
+      <DependentUpon>201610150631340_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

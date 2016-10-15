@@ -7,61 +7,164 @@ using System.Threading.Tasks;
 
 namespace NewEmployeeBuddy.Data.RepositoryPattern
 {
-    //CRUD operations for New Employee table using Repository Pattern
+    /// <summary>
+    /// CRUD operations for New Employee table using Repository Pattern
+    /// </summary>
     public class EmployeeRepository : IRepository<NewEmployee>
     {
-        //Constructor Injection
+        /// <summary>
+        /// Constructor Injection
+        /// </summary>
         private NewEmployeeDbContext _dbContext;
         public EmployeeRepository(NewEmployeeDbContext dbContext)
         {
             this._dbContext = dbContext;
         }
 
-        //Add a new record to the New Employee table
-        public void Add(NewEmployee entity)
+        /// <summary>
+        /// To add a new record in New Employee table
+        /// </summary>
+        /// <param name="entity">Instance of New Employee</param>
+        /// <returns>Returns a bool flag, either true or false</returns>
+        public bool Add(NewEmployee entity)
         {
-            _dbContext.NewEmployeeDetails.Add(entity);
+            var result = false;
+            try
+            {
+                if (entity != null)
+                {
+                    _dbContext.NewEmployeeDetails.Add(entity);
+                    result = true;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return result;
         }
 
-        //Delete a record in the New Employee table
-        public void Delete(NewEmployee entity)
+        /// <summary>
+        /// To delete a record from the New Employee table
+        /// </summary>
+        /// <param name="entity">Instance of New Employee</param>
+        /// <returns>Returns a bool flag, either true or false</returns>
+        public bool Delete(NewEmployee entity)
         {
-            _dbContext.NewEmployeeDetails.Remove(entity);
+            var result = false;
+            try
+            {
+                if (entity != null)
+                {
+                    _dbContext.NewEmployeeDetails.Remove(entity);
+                    result = true;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return result;
         }
 
-        //Delete a record using Phone Number in the New Employee table
-        public void DeleteById(int phoneNumber)
+        /// <summary>
+        /// To delete a record using Phone Number in the New Employee table
+        /// </summary>
+        /// <param name="phoneNumber">Primary Key of the row (Phone Number)</param>
+        /// <returns>Returns a bool flag, either true or false</returns>
+        public bool DeleteById(string id)
         {
-            NewEmployee record = _dbContext.NewEmployeeDetails.Find(phoneNumber);
-            _dbContext.NewEmployeeDetails.Remove(record);
+            var result = false;
+            try
+            {
+                if (!string.IsNullOrEmpty(id))
+                {
+                    NewEmployee record = _dbContext.NewEmployeeDetails.Find(id);
+                    _dbContext.NewEmployeeDetails.Remove(record);
+                    result = true;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return result;
         }
 
-        //Get All Data from New Employee table
-        public IQueryable<NewEmployee> GetAll()
+        /// <summary>
+        /// To get all data from New Employee table
+        /// </summary>
+        /// <returns>An IQuerable List of NewEmployee</returns>
+        public IEnumerable<NewEmployee> GetAll()
         {
-            return _dbContext.NewEmployeeDetails.ToList() as IQueryable<NewEmployee>;
+            var result = new List<NewEmployee>();
+            try
+            {
+                result = _dbContext.NewEmployeeDetails.ToList();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return result;
         }
 
-        //Get a single record using Phone Number from New Employee table
-        public NewEmployee GetById(int phoneNumber)
+        /// <summary>
+        /// To get a single record using Phone Number from New Employee table
+        /// </summary>
+        /// <param name="phoneNumber">Primary Key of the row (Phone Number)</param>
+        /// <returns>Returns a NewEmployee row matching the passing ID</returns>
+        public NewEmployee GetById(string id)
         {
-            return _dbContext.NewEmployeeDetails.Find(phoneNumber);
+            var result = new NewEmployee();
+            try
+            {
+                if (!string.IsNullOrEmpty(id))
+                {
+                    result = _dbContext.NewEmployeeDetails.Find(id); ;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return result;
         }
 
-        //Update a record into the New Employee table
-        public void Update(NewEmployee entity)
+        /// <summary>
+        /// To update a record in New Employee table
+        /// </summary>
+        /// <param name="entity">Instance of New Employee</param>
+        /// <returns>Returns a bool flag, either true or false</returns>
+        public bool Update(NewEmployee entity)
         {
-            _dbContext.Entry(entity).State = EntityState.Modified;
+            var result = false;
+            try
+            {
+                if (entity != null)
+                {
+                    _dbContext.Entry(entity).State = EntityState.Modified;
+                    result = true;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return result;
         }
 
-        //Save the changes 
+        /// <summary>
+        /// Tp save the changes 
+        /// </summary>
         public void Save()
         {
             _dbContext.SaveChanges();
         }
 
-
-        //Disposable Pattern - It is followed to dispose open connections / unused objects
+        /// <summary>
+        /// Disposable Pattern - It is used to dispose open connections / unused reference type objects
+        /// </summary>
         private bool disposed = false;
         protected virtual void Dispose(bool disposing)
         {

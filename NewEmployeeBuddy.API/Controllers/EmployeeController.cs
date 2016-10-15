@@ -10,6 +10,7 @@ using NewEmployeeBuddy.Common.DataTransferObjects;
 
 namespace NewEmployeeBuddy.API.Controllers
 {
+    [RoutePrefix("api/employee/")]
     public class EmployeeController : ApiController 
     {
         private static readonly NewEmployeeDbContext _context = new NewEmployeeDbContext();
@@ -21,11 +22,11 @@ namespace NewEmployeeBuddy.API.Controllers
         }
 
         [HttpGet]
-        [ActionName("GetAllEmployees")]
-        public IEnumerable<EmployeeResponse> Get()
+        [ActionName("GetAll")]
+        public IEnumerable<Employee> Get()
         {
-            var response = new List<EmployeeResponse>();
-            EmployeeResponse empResponse;
+            var response = new List<Employee>();
+            Employee empResponse;
             try
             {
                 var allEmployees = _repository.GetAll();
@@ -33,8 +34,8 @@ namespace NewEmployeeBuddy.API.Controllers
                 {
                     if (employee.IsActive)
                     {
-                        empResponse = new EmployeeResponse();
-                        empResponse.JoinerID = employee.JoinerID;
+                        empResponse = new Employee();
+                        empResponse.Id = employee.Id;
                         empResponse.FirstName = employee.FirstName;
                         empResponse.MiddleName = employee.MiddleName;
                         empResponse.LastName = employee.LastName;

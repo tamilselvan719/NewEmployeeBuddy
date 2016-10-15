@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace NewEmployeeBuddy.Common.DataTransferObjects
 {
-    public class EmployeeResponse
+    public class Employee
     {
-        public Guid JoinerID { get; set; }
+        public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
