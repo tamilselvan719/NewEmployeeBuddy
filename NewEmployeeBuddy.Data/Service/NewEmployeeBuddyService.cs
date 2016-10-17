@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NewEmployeeBuddy.Common.DataTransferObjects
+namespace NewEmployeeBuddy.Data.Service
 {
-    public class EmployeeRequest
+    public class NewEmployeeBuddyService
     {
     }
 }

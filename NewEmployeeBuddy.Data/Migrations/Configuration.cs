@@ -20,10 +20,10 @@ namespace NewEmployeeBuddy.Data.Migrations
         protected override void Seed(NewEmployeeBuddy.Data.NewEmployeeDbContext context)
         {
             // Add initial data to Employee table
-            foreach (var data in DataInitializer.EmployeeInitialData())
-            {
-                context.NewEmployeeDetails.AddOrUpdate(data);
-            }
+            //foreach (var data in DataInitializer.EmployeeInitialData())
+            //{
+            //    context.NewEmployeeDetails.AddOrUpdate(data);
+            //}
         }
     }
 }

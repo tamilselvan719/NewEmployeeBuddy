@@ -1,18 +1,18 @@
-﻿using NewEmployeeBuddy.Data;
+﻿using NewEmployeeBuddy.API.Filters;
+using NewEmployeeBuddy.Common.DataTransferObjects;
+using NewEmployeeBuddy.Data;
 using NewEmployeeBuddy.Data.RepositoryPattern;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+using System.Diagnostics;
 using System.Web.Http;
-using NewEmployeeBuddy.Common.DataTransferObjects;
 
 namespace NewEmployeeBuddy.API.Controllers
 {
-    [RoutePrefix("api/employee/")]
-    public class EmployeeController : ApiController 
+    [RoutePrefix("api/employee")]
+    public class EmployeeController : ApiController
     {
+        //Replace with an IOC container
         private static readonly NewEmployeeDbContext _context = new NewEmployeeDbContext();
         private readonly IRepository<NewEmployee> _repository;
 
@@ -23,12 +23,12 @@ namespace NewEmployeeBuddy.API.Controllers
 
         [HttpGet]
         [ActionName("GetAll")]
-        public IEnumerable<Employee> Get()
+        public IHttpActionResult Get()
         {
-            var response = new List<Employee>();
-            Employee empResponse;
             try
             {
+                var response = new List<Employee>();
+                Employee empResponse;
                 var allEmployees = _repository.GetAll();
                 foreach (var employee in allEmployees)
                 {
@@ -52,12 +52,233 @@ namespace NewEmployeeBuddy.API.Controllers
                         response.Add(empResponse);
                     }
                 }
+                return Ok(response);
             }
             catch (Exception ex)
             {
-                Console.Write(ex.Message);
+#if DEBUG
+                Debug.Write(ex.Message);
+                return InternalServerError(ex);
+#endif
+                //return InternalServerError();
             }
-            return response;
+        }
+
+        [HttpGet]
+        [ActionName("GetById")]
+        public IHttpActionResult Get(string phoneNumber)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(phoneNumber))
+                {
+                    var employee = _repository.GetById(phoneNumber);
+                    if (employee.IsActive)
+                    {
+                        Employee empResponse = new Employee();
+                        empResponse.Id = employee.Id;
+                        empResponse.FirstName = employee.FirstName;
+                        empResponse.MiddleName = employee.MiddleName;
+                        empResponse.LastName = employee.LastName;
+                        empResponse.Gender = employee.Gender;
+                        empResponse.DateOfBirth = employee.DateOfBirth;
+                        empResponse.PhoneNumber = employee.PhoneNumber;
+                        empResponse.MobileNumber = employee.MobileNumber;
+                        empResponse.EmailAddress = employee.EmailAddress;
+                        empResponse.Address = employee.Address;
+                        empResponse.PinCode = employee.PinCode;
+                        empResponse.City = employee.City;
+                        empResponse.State = employee.State;
+                        empResponse.Country = employee.Country;
+                        return Ok(empResponse);
+                    }
+                    else
+                        return BadRequest("Client not active");
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+#if DEBUG
+                Debug.Write(ex.Message);
+                return InternalServerError(ex);
+#endif
+                //return InternalServerError();
+            }
+            
+        }
+
+        [HttpPost]
+        [ActionName("Add")]
+        [ModelValidator]
+        public IHttpActionResult Post([FromBody] Employee employee)
+        {
+            try
+            {
+                var result = false;
+                if (employee != null)
+                {
+                    var emp = new NewEmployee();
+                    emp.Id = Guid.NewGuid();
+                    emp.FirstName = employee.FirstName;
+                    emp.MiddleName = employee.MiddleName;
+                    emp.LastName = employee.LastName;
+                    emp.Gender = employee.Gender;
+                    emp.DateOfBirth = Convert.ToDateTime(employee.DateOfBirth);
+                    emp.PhoneNumber = employee.PhoneNumber;
+                    emp.MobileNumber = employee.MobileNumber;
+                    emp.EmailAddress = employee.EmailAddress;
+                    emp.Address = employee.Address;
+                    emp.PinCode = employee.PinCode;
+                    emp.City = employee.City;
+                    emp.State = employee.State;
+                    emp.Country = employee.Country;
+                    emp.IsActive = true;
+                    emp.Id = Guid.NewGuid();
+                    emp.CreatedBy = "System";
+                    emp.CreatedOn = DateTime.Now;
+                    emp.UpdatedBy = "";
+                    emp.UpdatedOn = DateTime.Now;
+                    result = _repository.Add(emp);
+                    return Created("Database", result);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+
+            }
+            catch (Exception ex)
+            {
+#if DEBUG
+                Debug.Write(ex.Message);
+                return InternalServerError(ex);
+#endif
+                //return InternalServerError();
+            }
+        }
+
+        [HttpDelete]
+        [ActionName("Delete")]
+        [ModelValidator]
+        public IHttpActionResult Delete([FromBody] Employee employee)
+        {
+            try
+            {
+                var result = false;
+                if (employee != null)
+                {
+                    var emp = new NewEmployee();
+                    emp.Id = employee.Id;
+                    emp.FirstName = employee.FirstName;
+                    emp.MiddleName = employee.MiddleName;
+                    emp.LastName = employee.LastName;
+                    emp.Gender = employee.Gender;
+                    emp.DateOfBirth = employee.DateOfBirth;
+                    emp.PhoneNumber = employee.PhoneNumber;
+                    emp.MobileNumber = employee.MobileNumber;
+                    emp.EmailAddress = employee.EmailAddress;
+                    emp.Address = employee.Address;
+                    emp.PinCode = employee.PinCode;
+                    emp.City = employee.City;
+                    emp.State = employee.State;
+                    emp.Country = employee.Country;
+                    emp.IsActive = true;
+                    emp.Id = Guid.NewGuid();
+                    emp.CreatedBy = "System";
+                    emp.CreatedOn = DateTime.Now;
+                    emp.UpdatedBy = "";
+                    emp.UpdatedOn = DateTime.Now;
+                    result = _repository.Delete(emp);
+                    return Ok(result);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+#if DEBUG
+                Debug.Write(ex.Message);
+                return InternalServerError(ex);
+#endif
+                //return InternalServerError();
+            }
+        }
+
+        [HttpDelete]
+        [ActionName("DeleteById")]
+        public IHttpActionResult Delete(string phoneNumber)
+        {
+            try
+            {
+                var response = false;
+                if (!string.IsNullOrEmpty(phoneNumber))
+                {
+                    response = _repository.DeleteById(phoneNumber);
+                    return Ok(response);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+#if DEBUG
+                Debug.Write(ex.Message);
+                return InternalServerError(ex);
+#endif
+                //return InternalServerError();
+            }
+        }
+
+        [HttpPut]
+        [ActionName("Update")]
+        [ModelValidator]
+        public IHttpActionResult Put([FromBody] Employee employee)
+        {
+            try
+            {
+                var result = false;
+                if (employee != null)
+                {
+                    var emp = new NewEmployee();
+                    //emp.Id = employee.Id;
+                    emp.FirstName = employee.FirstName;
+                    emp.MiddleName = employee.MiddleName;
+                    emp.LastName = employee.LastName;
+                    emp.Gender = employee.Gender;
+                    emp.DateOfBirth = Convert.ToDateTime(employee.DateOfBirth);
+                    emp.PhoneNumber = employee.PhoneNumber;
+                    emp.MobileNumber = employee.MobileNumber;
+                    emp.EmailAddress = employee.EmailAddress;
+                    emp.Address = employee.Address;
+                    emp.PinCode = employee.PinCode;
+                    emp.City = employee.City;
+                    emp.State = employee.State;
+                    emp.Country = employee.Country;
+                    result = _repository.Update(emp);
+                    return Ok(result);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+
+            }
+            catch (Exception ex)
+            {
+#if DEBUG
+                Debug.Write(ex.Message);
+                return InternalServerError(ex);
+#endif
+                //return InternalServerError();
+            }
         }
     }
 }

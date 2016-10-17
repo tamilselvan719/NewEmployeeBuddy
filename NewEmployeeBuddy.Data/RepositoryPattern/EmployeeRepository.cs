@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NewEmployeeBuddy.Data.RepositoryPattern
 {
@@ -18,7 +16,7 @@ namespace NewEmployeeBuddy.Data.RepositoryPattern
         private NewEmployeeDbContext _dbContext;
         public EmployeeRepository(NewEmployeeDbContext dbContext)
         {
-            this._dbContext = dbContext;
+            _dbContext = dbContext;
         }
 
         /// <summary>
@@ -34,6 +32,7 @@ namespace NewEmployeeBuddy.Data.RepositoryPattern
                 if (entity != null)
                 {
                     _dbContext.NewEmployeeDetails.Add(entity);
+                    _dbContext.SaveChanges();
                     result = true;
                 }
             }
@@ -56,7 +55,9 @@ namespace NewEmployeeBuddy.Data.RepositoryPattern
             {
                 if (entity != null)
                 {
-                    _dbContext.NewEmployeeDetails.Remove(entity);
+                    var employee = _dbContext.NewEmployeeDetails.FirstOrDefault(emp => emp.PhoneNumber == entity.PhoneNumber);
+                    _dbContext.NewEmployeeDetails.Remove(employee);
+                    _dbContext.SaveChanges();
                     result = true;
                 }
             }
@@ -81,6 +82,7 @@ namespace NewEmployeeBuddy.Data.RepositoryPattern
                 {
                     NewEmployee record = _dbContext.NewEmployeeDetails.Find(id);
                     _dbContext.NewEmployeeDetails.Remove(record);
+                    _dbContext.SaveChanges();
                     result = true;
                 }
             }
@@ -121,7 +123,7 @@ namespace NewEmployeeBuddy.Data.RepositoryPattern
             {
                 if (!string.IsNullOrEmpty(id))
                 {
-                    result = _dbContext.NewEmployeeDetails.Find(id); ;
+                    result = _dbContext.NewEmployeeDetails.Find(id);
                 }
             }
             catch (Exception)
@@ -143,8 +145,38 @@ namespace NewEmployeeBuddy.Data.RepositoryPattern
             {
                 if (entity != null)
                 {
-                    _dbContext.Entry(entity).State = EntityState.Modified;
-                    result = true;
+                    var employee = _dbContext.NewEmployeeDetails.FirstOrDefault(emp => emp.PhoneNumber == entity.PhoneNumber);
+                    if (employee != null)
+                    {
+                        //Mapping the entities coming from HttpRequest with Database entities
+                        employee.FirstName = (!string.IsNullOrEmpty(entity.FirstName)) ? entity.FirstName : employee.FirstName;
+                        employee.MiddleName = (!string.IsNullOrEmpty(entity.MiddleName)) ? entity.MiddleName : employee.MiddleName;
+                        employee.LastName = (!string.IsNullOrEmpty(entity.LastName)) ? entity.LastName : employee.LastName;
+                        employee.Gender = (!string.IsNullOrEmpty(entity.Gender)) ? entity.Gender : employee.Gender;
+                        employee.DateOfBirth = (!(entity.DateOfBirth.Equals(DateTime.MinValue))) ? entity.DateOfBirth : employee.DateOfBirth;
+                        employee.PhoneNumber = (!string.IsNullOrEmpty(entity.PhoneNumber)) ? entity.PhoneNumber : employee.PhoneNumber;
+                        employee.MobileNumber = (!string.IsNullOrEmpty(entity.MobileNumber)) ? entity.MobileNumber : employee.MobileNumber;
+                        employee.EmailAddress = (!string.IsNullOrEmpty(entity.EmailAddress)) ? entity.EmailAddress : employee.EmailAddress;
+                        employee.Address = (!string.IsNullOrEmpty(entity.Address)) ? entity.Address : employee.Address;
+                        employee.PinCode = (!string.IsNullOrEmpty(entity.PinCode)) ? entity.PinCode : employee.PinCode;
+                        employee.City = (!string.IsNullOrEmpty(entity.City)) ? entity.City : employee.City;
+                        employee.State = (!string.IsNullOrEmpty(entity.State)) ? entity.State : employee.State;
+                        employee.Country = (!string.IsNullOrEmpty(entity.Country)) ? entity.Country : employee.Country;
+                        employee.IsActive = (!entity.IsActive.Equals(null)) ? entity.IsActive : employee.IsActive;
+                        employee.Id = (entity.Id != Guid.Empty) ? entity.Id : employee.Id;
+                        employee.CreatedBy = (!string.IsNullOrEmpty(entity.CreatedBy)) ? entity.CreatedBy : employee.CreatedBy;
+                        employee.CreatedOn = (!(entity.CreatedOn.Equals(DateTime.MinValue))) ? entity.CreatedOn : employee.CreatedOn;
+                        employee.UpdatedBy = (!string.IsNullOrEmpty(entity.UpdatedBy)) ? entity.UpdatedBy : employee.UpdatedBy;
+                        employee.UpdatedOn = DateTime.Now;
+
+                        _dbContext.Entry(employee).State = EntityState.Modified;
+                        _dbContext.SaveChanges();
+                        result = true;
+                    }
+                    else
+                    {
+                        result = false;
+                    }
                 }
             }
             catch (Exception)
@@ -155,7 +187,7 @@ namespace NewEmployeeBuddy.Data.RepositoryPattern
         }
 
         /// <summary>
-        /// Tp save the changes 
+        /// To save the changes 
         /// </summary>
         public void Save()
         {

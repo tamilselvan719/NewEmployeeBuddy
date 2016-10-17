@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataContext\DbContextInitializer.cs" />
     <Compile Include="Entities\BaseEntities\EntityBase.cs" />
     <Compile Include="Entities\NewEmployee.cs" />
     <Compile Include="DataContext\NewEmployeeDbContext.cs" />
@@ -65,6 +66,8 @@
     <Compile Include="RepositoryPattern\EmployeeRepository.cs" />
     <Compile Include="RepositoryPattern\Interfaces\IRepository.cs" />
     <Compile Include="SampleData\DataInitializer.cs" />
+    <Compile Include="Service\INewEmployeeBuddyService.cs" />
+    <Compile Include="Service\NewEmployeeBuddyService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
