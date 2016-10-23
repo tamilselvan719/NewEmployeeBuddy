@@ -29,7 +29,11 @@ namespace NewEmployeeBuddy.Data
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            //This statement will restrict Entity Framework to pluralize table names by default.
             modelBuilder.Entity<NewEmployee>().ToTable("Employee");
+
+            //This statement is used in case you have already created a table in database
+            //and wants to map your Model with it
             modelBuilder.Conventions.Remove<PluralizingEntitySetNameConvention>();
         }
     }

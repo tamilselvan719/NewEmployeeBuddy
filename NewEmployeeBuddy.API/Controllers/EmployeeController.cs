@@ -12,13 +12,26 @@ namespace NewEmployeeBuddy.API.Controllers
     [RoutePrefix("api/employee")]
     public class EmployeeController : ApiController
     {
-        //Replace with an IOC container
-        private static readonly NewEmployeeDbContext _context = new NewEmployeeDbContext();
+        //Replace with an IOC container (Instance created using Unity Container at UnityConfig.cs in App_Start)
         private readonly IRepository<NewEmployee> _repository;
 
-        public EmployeeController()
+        /// <summary>
+        /// Parameterised Constructor: 
+        /// Used when someone access this controller by passing the IRepository<NewEmployee> instance
+        /// </summary>
+        /// <param name="repository"></param>
+        public EmployeeController(IRepository<NewEmployee> repository)
         {
-            this._repository = new EmployeeRepository(_context);
+            _repository = repository;
+        }
+
+        /// <summary>
+        /// Default Constructor:
+        /// Used by default or if no overload constructor is called
+        /// </summary>
+        public EmployeeController() 
+        {
+            this._repository = new EmpRepository(new NewEmployeeDbContext());
         }
 
         [HttpGet]
@@ -73,7 +86,7 @@ namespace NewEmployeeBuddy.API.Controllers
                 if (!string.IsNullOrEmpty(phoneNumber))
                 {
                     var employee = _repository.GetById(phoneNumber);
-                    if (employee.IsActive)
+                    if (employee != null && employee.IsActive)
                     {
                         Employee empResponse = new Employee();
                         empResponse.Id = employee.Id;

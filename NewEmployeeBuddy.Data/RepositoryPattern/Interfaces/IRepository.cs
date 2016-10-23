@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace NewEmployeeBuddy.Data.RepositoryPattern
 {
     /// <summary>
-    /// A generic repository interface which takes a Model as class and operates accordingly.
+    /// A generic repository interface (concept of generic classes) which takes a Model as class and operates accordingly
     /// </summary>
-    /// <typeparam name="T">T is any entity or data model class</typeparam>
+    /// <typeparam name="T">T is a generic class that will be passed on runtime</typeparam>
     public interface IRepository<T> where T : class
     {
         IEnumerable<T> GetAll();
@@ -18,6 +18,5 @@ namespace NewEmployeeBuddy.Data.RepositoryPattern
         bool Update(T entity);
         bool Delete(T entity);
         bool DeleteById(string id);
-        void Save();
     }
 }

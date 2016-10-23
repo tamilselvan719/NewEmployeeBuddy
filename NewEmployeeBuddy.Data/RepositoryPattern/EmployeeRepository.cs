@@ -6,7 +6,7 @@ using System.Linq;
 namespace NewEmployeeBuddy.Data.RepositoryPattern
 {
     /// <summary>
-    /// CRUD operations for New Employee table using Repository Pattern
+    /// CRUD operations for New Employee table using Generic Repository Pattern
     /// </summary>
     public class EmployeeRepository : IRepository<NewEmployee>
     {
@@ -22,7 +22,7 @@ namespace NewEmployeeBuddy.Data.RepositoryPattern
         /// <summary>
         /// To add a new record in New Employee table
         /// </summary>
-        /// <param name="entity">Instance of New Employee</param>
+        /// <param name="entity">The instance of New Employee class</param>
         /// <returns>Returns a bool flag, either true or false</returns>
         public bool Add(NewEmployee entity)
         {
@@ -32,7 +32,7 @@ namespace NewEmployeeBuddy.Data.RepositoryPattern
                 if (entity != null)
                 {
                     _dbContext.NewEmployeeDetails.Add(entity);
-                    _dbContext.SaveChanges();
+                    Save();
                     result = true;
                 }
             }
@@ -46,7 +46,7 @@ namespace NewEmployeeBuddy.Data.RepositoryPattern
         /// <summary>
         /// To delete a record from the New Employee table
         /// </summary>
-        /// <param name="entity">Instance of New Employee</param>
+        /// <param name="entity">The instance of New Employee class</param>
         /// <returns>Returns a bool flag, either true or false</returns>
         public bool Delete(NewEmployee entity)
         {
@@ -57,7 +57,7 @@ namespace NewEmployeeBuddy.Data.RepositoryPattern
                 {
                     var employee = _dbContext.NewEmployeeDetails.FirstOrDefault(emp => emp.PhoneNumber == entity.PhoneNumber);
                     _dbContext.NewEmployeeDetails.Remove(employee);
-                    _dbContext.SaveChanges();
+                    Save();
                     result = true;
                 }
             }
@@ -82,7 +82,7 @@ namespace NewEmployeeBuddy.Data.RepositoryPattern
                 {
                     NewEmployee record = _dbContext.NewEmployeeDetails.Find(id);
                     _dbContext.NewEmployeeDetails.Remove(record);
-                    _dbContext.SaveChanges();
+                    Save();
                     result = true;
                 }
             }
@@ -136,7 +136,7 @@ namespace NewEmployeeBuddy.Data.RepositoryPattern
         /// <summary>
         /// To update a record in New Employee table
         /// </summary>
-        /// <param name="entity">Instance of New Employee</param>
+        /// <param name="entity">The instance of New Employee class</param>
         /// <returns>Returns a bool flag, either true or false</returns>
         public bool Update(NewEmployee entity)
         {
@@ -149,6 +149,11 @@ namespace NewEmployeeBuddy.Data.RepositoryPattern
                     if (employee != null)
                     {
                         //Mapping the entities coming from HttpRequest with Database entities
+
+                        //Null - Coalescing Operator
+                        employee.FirstName = employee.FirstName ?? "John";
+
+                        //Conditional Operator
                         employee.FirstName = (!string.IsNullOrEmpty(entity.FirstName)) ? entity.FirstName : employee.FirstName;
                         employee.MiddleName = (!string.IsNullOrEmpty(entity.MiddleName)) ? entity.MiddleName : employee.MiddleName;
                         employee.LastName = (!string.IsNullOrEmpty(entity.LastName)) ? entity.LastName : employee.LastName;
@@ -170,7 +175,7 @@ namespace NewEmployeeBuddy.Data.RepositoryPattern
                         employee.UpdatedOn = DateTime.Now;
 
                         _dbContext.Entry(employee).State = EntityState.Modified;
-                        _dbContext.SaveChanges();
+                        Save();
                         result = true;
                     }
                     else
@@ -212,6 +217,8 @@ namespace NewEmployeeBuddy.Data.RepositoryPattern
         public void Dispose()
         {
             Dispose(true);
+            //Prevent the GC from calling Object.Finalize on an
+            //object that does not require it
             GC.SuppressFinalize(this);
         }
     }

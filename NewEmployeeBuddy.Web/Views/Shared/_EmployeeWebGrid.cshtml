@@ -1,0 +1,32 @@
+﻿@using NewEmployeeBuddy.Data;
+@model IEnumerable<NewEmployee>
+
+<div id="gridView">
+    @{ 
+        WebGrid webGrid = new WebGrid(
+            source: Model,
+            ajaxUpdateContainerId: "gridView",
+            rowsPerPage: 10);
+        int rowNumber = 0;
+    }
+
+    @webGrid.GetHtml(
+    columns: webGrid.Columns(
+       webGrid.Column("JoinerID", " H"),
+       webGrid.Column("S.No", format: item => rowNumber = rowNumber + 1, canSort: true, style: "row"),
+       webGrid.Column("FirstName", "First Name"),
+       webGrid.Column("MiddleName", "Middle Name"),
+       webGrid.Column("LastName", "Last Name"),
+       webGrid.Column("Gender", "Gender"),
+       webGrid.Column("DateOfBirth", "Date Of Birth"),
+       webGrid.Column("EmailAddress", "Email Address"),
+       webGrid.Column("MobileNumber", "Mobile Number"),
+       webGrid.Column("Phone Number", "Phone Number"),
+       webGrid.Column("Address", "Address"),
+       webGrid.Column("City", "City"),
+       webGrid.Column("State", "State"),
+       webGrid.Column("Country", "Country"),
+       webGrid.Column("PinCode", "Pin Code")
+        )
+        )
+</div>

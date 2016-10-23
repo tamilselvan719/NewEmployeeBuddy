@@ -1,0 +1,13 @@
+﻿@using NewEmployeeBuddy.Data;
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<div class="form-control">
+    <h2 class="text-muted">Welcome, New Recruits!</h2>
+
+    <div class="section-grid">
+        @Html.Partial("_EmployeeWebGrid", (IEnumerable<NewEmployee>)ViewBag.data);
+    </div>
+</div>
+

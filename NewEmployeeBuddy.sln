@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewEmployeeBuddy.Database",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewEmployeeBuddy.Web", "NewEmployeeBuddy.Web\NewEmployeeBuddy.Web.csproj", "{B02E03BB-AF28-40A4-86E8-5C25B6FB23ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewEmployeeBuddy.Tests", "NewEmployeeBuddy.Tests\NewEmployeeBuddy.Tests.csproj", "{A55461AF-73A7-4F42-B39C-912EC201C2DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{B02E03BB-AF28-40A4-86E8-5C25B6FB23ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B02E03BB-AF28-40A4-86E8-5C25B6FB23ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B02E03BB-AF28-40A4-86E8-5C25B6FB23ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A55461AF-73A7-4F42-B39C-912EC201C2DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A55461AF-73A7-4F42-B39C-912EC201C2DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A55461AF-73A7-4F42-B39C-912EC201C2DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A55461AF-73A7-4F42-B39C-912EC201C2DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
