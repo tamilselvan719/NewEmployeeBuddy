@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace NewEmployeeBuddy.API.Controllers
 {
-    [RoutePrefix("api/employee")]
+    [RoutePrefix("api/[employee]")]
     public class EmployeeController : ApiController
     {
         //Replace with an IOC container (Instance created using Unity Container at UnityConfig.cs in App_Start)
