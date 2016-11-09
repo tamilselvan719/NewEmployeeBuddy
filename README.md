@@ -1,5 +1,5 @@
 # NewEmployeeBuddy - your first friend in the organisation.
-An end-to-end RESTful service using ASP.NET WebAPI, C#, Dependency Injection, Generic Repository Pattern, Unit of Work, NUnit and Moq.  
+An end-to-end RESTful service using ASP.NET WebAPI, C#, Dependency Injection, Generic Repository Pattern, Unit of Work, AutoMapper, NUnit and Moq.  
 
 # Concepts highly used during the development:
 1. ASP.NET WEBAPI - https://www.asp.net/web-api
@@ -10,3 +10,4 @@ An end-to-end RESTful service using ASP.NET WebAPI, C#, Dependency Injection, Ge
 6. Attribute Routing - https://www.asp.net/web-api/overview/web-api-routing-and-actions/attribute-routing-in-web-api-2
 7. Action Filters - https://msdn.microsoft.com/en-in/library/dd410209(v=vs.100).aspx
 8. Unit Testing using Nunit and Moq - http://stackoverflow.com/questions/1554018/unit-test-nunit-or-visual-studio
+9. AutoMapper - http://automapper.org/
