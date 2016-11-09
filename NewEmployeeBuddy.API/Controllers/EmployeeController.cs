@@ -2,6 +2,7 @@
 using NewEmployeeBuddy.Common.DataTransferObjects;
 using NewEmployeeBuddy.Data;
 using NewEmployeeBuddy.Data.RepositoryPattern;
+using NewEmployeeBuddy.Data.RepositoryPattern.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,11 +13,14 @@ namespace NewEmployeeBuddy.API.Controllers
     [RoutePrefix("api/[employee]")]
     public class EmployeeController : ApiController
     {
+        #region Properties
         //Replace with an IOC container (Instance created using Unity Container at UnityConfig.cs in App_Start)
         private readonly IRepository<NewEmployee> _repository;
+        #endregion
 
+        #region Constructor
         /// <summary>
-        /// Parameterised Constructor: 
+        /// Parameterized Constructor: 
         /// Used when someone access this controller by passing the IRepository<NewEmployee> instance
         /// </summary>
         /// <param name="repository"></param>
@@ -33,7 +37,9 @@ namespace NewEmployeeBuddy.API.Controllers
         {
             this._repository = new EmpRepository(new NewEmployeeDbContext());
         }
+        #endregion
 
+        #region Action Methods
         [HttpGet]
         [ActionName("GetAll")]
         public IHttpActionResult Get()
@@ -43,11 +49,17 @@ namespace NewEmployeeBuddy.API.Controllers
                 var response = new List<Employee>();
                 Employee empResponse;
                 var allEmployees = _repository.GetAll();
+
                 foreach (var employee in allEmployees)
                 {
                     if (employee.IsActive)
                     {
                         empResponse = new Employee();
+
+                        //Code Refactoring using AutoMapper
+                       // Employee empResponse1 = new Employee();
+                        //empResponse1 = Mapper.Map<NewEmployee, Employee>(employee);
+
                         empResponse.Id = employee.Id;
                         empResponse.FirstName = employee.FirstName;
                         empResponse.MiddleName = employee.MiddleName;
@@ -293,5 +305,6 @@ namespace NewEmployeeBuddy.API.Controllers
                 //return InternalServerError();
             }
         }
+        #endregion
     }
 }

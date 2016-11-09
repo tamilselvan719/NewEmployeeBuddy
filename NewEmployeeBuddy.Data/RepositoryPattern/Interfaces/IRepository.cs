@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NewEmployeeBuddy.Data.RepositoryPattern
+namespace NewEmployeeBuddy.Data.RepositoryPattern.Interfaces
 {
     /// <summary>
     /// A generic repository interface (concept of generic classes) which takes a Model as class and operates accordingly

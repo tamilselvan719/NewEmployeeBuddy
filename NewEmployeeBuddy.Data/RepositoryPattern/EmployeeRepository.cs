@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NewEmployeeBuddy.Data.RepositoryPattern.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
