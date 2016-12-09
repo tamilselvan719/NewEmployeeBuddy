@@ -1,5 +1,5 @@
 # NewEmployeeBuddy - your first friend in the organisation.
-An end-to-end RESTful service using ASP.NET WebAPI, C#, Dependency Injection, Generic Repository Pattern, Unit of Work, AutoMapper, NUnit and Moq.  
+An end-to-end RESTful service using ASP.NET WebAPI, C#, Dependency Injection using AutoFac, Generic Repository Pattern, Unit of Work, AutoMapper, NUnit and Moq.  
 
 # Concepts highly used during the development:
 1. ASP.NET WEBAPI - https://www.asp.net/web-api
@@ -13,10 +13,27 @@ An end-to-end RESTful service using ASP.NET WebAPI, C#, Dependency Injection, Ge
 9. AutoMapper - http://automapper.org/
 
 #API Url's
-~/api/[employee]/
-~/api/[employee]/GetAll
+GET   ~/api/[employee]/GetAll
+
 ~/api/[employee]/GetById/1
 ~/api/[employee]/Add
 ~/api/[employee]/Delete
 ~/api/[employee]/DeleteById/1
 ~/api/[employee]/Update
+
+Request	Example URI	Action Name	Example Action
+GET /entityset	/Products	GetEntitySet or Get	GetProducts
+GET /entityset(key)	/Products(1)	GetEntityType or Get	GetProduct
+GET /entityset(key)/cast	/Products(1)/Models.Book	GetEntityType or Get	GetBook
+<table>
+<tr>
+<th>Request</th>
+<td>GET</td>
+<td>/entityset</td>
+</tr>
+<tr>
+<th>Request</th>
+<td>GET</td>
+<td>/entityset</td>
+</tr>
+</table>
