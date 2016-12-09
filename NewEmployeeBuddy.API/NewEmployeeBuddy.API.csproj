@@ -176,6 +176,10 @@
       <Project>{fb7a2dc9-7af9-4a7f-979a-9aa2e71c54c8}</Project>
       <Name>NewEmployeeBuddy.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NewEmployeeBuddy.Entities\NewEmployeeBuddy.Entities.csproj">
+      <Project>{c2475780-304e-4219-a148-c32f5e8e2bee}</Project>
+      <Name>NewEmployeeBuddy.Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

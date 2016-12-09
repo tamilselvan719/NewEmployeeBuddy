@@ -1,10 +1,10 @@
-﻿using NewEmployeeBuddy.Data.RepositoryPattern.Interfaces;
+﻿using NewEmployeeBuddy.Data.Repository.Base;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
-namespace NewEmployeeBuddy.Data.RepositoryPattern
+namespace NewEmployeeBuddy.Data.Repository
 {
     /// <summary>
     /// CRUD operations for New Employee table using Generic Repository Pattern

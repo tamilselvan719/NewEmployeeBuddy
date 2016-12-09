@@ -1,8 +1,8 @@
 ﻿using NewEmployeeBuddy.API.Filters;
-using NewEmployeeBuddy.Common.DataTransferObjects;
 using NewEmployeeBuddy.Data;
-using NewEmployeeBuddy.Data.RepositoryPattern;
-using NewEmployeeBuddy.Data.RepositoryPattern.Interfaces;
+using NewEmployeeBuddy.Data.Repository;
+using NewEmployeeBuddy.Data.Repository.Base;
+using NewEmployeeBuddy.Entities.DataTransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

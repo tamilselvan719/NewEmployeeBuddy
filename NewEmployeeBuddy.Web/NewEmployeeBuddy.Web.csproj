@@ -154,6 +154,16 @@
     <Folder Include="Models\" />
     <Folder Include="Views\Employee\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NewEmployeeBuddy.Common\NewEmployeeBuddy.Common.csproj">
+      <Project>{329d0b6e-330f-4821-8e5b-798a67006bb3}</Project>
+      <Name>NewEmployeeBuddy.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NewEmployeeBuddy.Entities\NewEmployeeBuddy.Entities.csproj">
+      <Project>{c2475780-304e-4219-a148-c32f5e8e2bee}</Project>
+      <Name>NewEmployeeBuddy.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

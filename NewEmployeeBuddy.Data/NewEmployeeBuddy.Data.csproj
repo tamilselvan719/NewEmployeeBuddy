@@ -100,10 +100,10 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RepositoryPattern\EmployeeRepository.cs" />
-    <Compile Include="RepositoryPattern\EmpRepository.cs" />
-    <Compile Include="RepositoryPattern\Interfaces\IRepository.cs" />
-    <Compile Include="RepositoryPattern\Interfaces\RepositoryBase.cs" />
+    <Compile Include="Repository\EmployeeRepository.cs" />
+    <Compile Include="Repository\EmpRepository.cs" />
+    <Compile Include="Repository\Base\IRepository.cs" />
+    <Compile Include="Repository\Base\RepositoryBase.cs" />
     <Compile Include="SampleData\DataInitializer.cs" />
     <Compile Include="Service\INewEmployeeBuddyService.cs" />
     <Compile Include="Service\NewEmployeeBuddyService.cs" />

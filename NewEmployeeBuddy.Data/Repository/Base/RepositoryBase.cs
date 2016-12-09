@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 
-namespace NewEmployeeBuddy.Data.RepositoryPattern.Interfaces
+namespace NewEmployeeBuddy.Data.Repository.Base
 {
     public class RepositoryBase<T> : IRepository<T> 
         where T: class

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NewEmployeeBuddy.Common.DataTransferObjects
+namespace NewEmployeeBuddy.Entities.DataTransferObjects
 {
     public class Employee
     {
