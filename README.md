@@ -22,31 +22,31 @@ An end-to-end RESTful service using ASP.NET WebAPI, C#, Dependency Injection usi
 <tr>
 <th>GET</th>
 <td>~/api/employee/GetAll</td>
-<td>Get the details of all Employees</td>
+<td>Gets the list of all Employees</td>
 </tr>
 <tr>
 <th>GET</th>
 <td>~/api/employee/GetById/1</td>
-<td>Get the Employee details passing the Employee Id</td>
+<td>Gets the Employee details passing the Employee Id</td>
 </tr>
 <tr>
 <th>POST</th>
 <td>~/api/employee/Add</td>
-<td>Add an Employee</td>
+<td>Adds an Employee</td>
 </tr>
 <tr>
 <th>DELETE</th>
 <td>~/api/employee/Delete</td>
-<td>Delete an Employee</td>
+<td>Deletes an Employee</td>
 </tr>
 <tr>
 <th>DELETE</th>
 <td>~/api/employee/DeleteById/1</td>
-<td>Delete an Empoyee pasing the Employee Id</td>
+<td>Deletes an Empoyee pasing the Employee Id</td>
 </tr>
 <tr>
 <th>PUT</th>
 <td>~/api/employee/Update</td>
-<td>Update the Employee details</td>
+<td>Updates the Employee details</td>
 </tr>
 </table>
