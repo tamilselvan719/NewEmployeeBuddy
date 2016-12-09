@@ -12,28 +12,42 @@ An end-to-end RESTful service using ASP.NET WebAPI, C#, Dependency Injection usi
 8. Unit Testing using Nunit and Moq - http://stackoverflow.com/questions/1554018/unit-test-nunit-or-visual-studio
 9. AutoMapper - http://automapper.org/
 
-#API Url's
-GET   ~/api/[employee]/GetAll
-
-~/api/[employee]/GetById/1
-~/api/[employee]/Add
-~/api/[employee]/Delete
-~/api/[employee]/DeleteById/1
-~/api/[employee]/Update
-
-Request	Example URI	Action Name	Example Action
-GET /entityset	/Products	GetEntitySet or Get	GetProducts
-GET /entityset(key)	/Products(1)	GetEntityType or Get	GetProduct
-GET /entityset(key)/cast	/Products(1)/Models.Book	GetEntityType or Get	GetBook
+#Querying URIs
+<br/>
 <table>
 <tr>
 <th>Request</th>
-<td>GET</td>
-<td>/entityset</td>
+<td>URI</td>
+<td>Action</td>
 </tr>
 <tr>
-<th>Request</th>
-<td>GET</td>
-<td>/entityset</td>
+<th>GET</th>
+<td>~/api/employee/GetAll</td>
+<td>Get the details of all Employees</td>
+</tr>
+<tr>
+<th>GET</th>
+<td>~/api/employee/GetById/1</td>
+<td>Get the Employee details passing the Employee Id</td>
+</tr>
+<tr>
+<th>POST</th>
+<td>~/api/employee/Add</td>
+<td>Add an Employee</td>
+</tr>
+<tr>
+<th>DELETE</th>
+<td>~/api/employee/Delete</td>
+<td>Delete an Employee</td>
+</tr>
+<tr>
+<th>DELETE</th>
+<td>~/api/employee/DeleteById/1</td>
+<td>Delete an Empoyee pasing the Employee Id</td>
+</tr>
+<tr>
+<th>PuT</th>
+<td>~/api/employee/Update</td>
+<td>Update the Employee details</td>
 </tr>
 </table>
