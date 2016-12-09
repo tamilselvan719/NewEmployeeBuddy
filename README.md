@@ -16,36 +16,36 @@ An end-to-end RESTful service using ASP.NET WebAPI, C#, Dependency Injection usi
 <table>
 <tr>
 <th>Request</th>
-<td>URI</td>
-<td>Action</td>
+<th>URI</th>
+<th>Action</th>
 </tr>
 <tr>
-<th>GET</th>
+<td>GET</td>
 <td>~/api/employee/GetAll</td>
 <td>Gets the list of all Employees</td>
 </tr>
 <tr>
-<th>GET</th>
+<td>GET</td>
 <td>~/api/employee/GetById/1</td>
 <td>Gets the Employee details passing the Employee Id</td>
 </tr>
 <tr>
-<th>POST</th>
+<td>POST</td>
 <td>~/api/employee/Add</td>
 <td>Adds an Employee</td>
 </tr>
 <tr>
-<th>DELETE</th>
+<td>DELETE</td>
 <td>~/api/employee/Delete</td>
 <td>Deletes an Employee</td>
 </tr>
 <tr>
-<th>DELETE</th>
+<td>DELETE</td>
 <td>~/api/employee/DeleteById/1</td>
 <td>Deletes an Empoyee pasing the Employee Id</td>
 </tr>
 <tr>
-<th>PUT</th>
+<td>PUT</td>
 <td>~/api/employee/Update</td>
 <td>Updates the Employee details</td>
 </tr>
