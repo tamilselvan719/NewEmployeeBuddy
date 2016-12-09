@@ -15,7 +15,7 @@ An end-to-end RESTful service using ASP.NET WebAPI, C#, Dependency Injection usi
 #Querying URIs
 <table>
 <tr>
-<th>Request</th>
+<th>Verb</th>
 <th>URI</th>
 <th>Action</th>
 </tr>
