@@ -13,7 +13,6 @@ An end-to-end RESTful service using ASP.NET WebAPI, C#, Dependency Injection usi
 9. AutoMapper - http://automapper.org/
 
 #Querying URIs
-<br/>
 <table>
 <tr>
 <th>Request</th>
@@ -46,7 +45,7 @@ An end-to-end RESTful service using ASP.NET WebAPI, C#, Dependency Injection usi
 <td>Delete an Empoyee pasing the Employee Id</td>
 </tr>
 <tr>
-<th>PuT</th>
+<th>PUT</th>
 <td>~/api/employee/Update</td>
 <td>Update the Employee details</td>
 </tr>
