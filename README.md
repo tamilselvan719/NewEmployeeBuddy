@@ -11,3 +11,12 @@ An end-to-end RESTful service using ASP.NET WebAPI, C#, Dependency Injection, Ge
 7. Action Filters - https://msdn.microsoft.com/en-in/library/dd410209(v=vs.100).aspx
 8. Unit Testing using Nunit and Moq - http://stackoverflow.com/questions/1554018/unit-test-nunit-or-visual-studio
 9. AutoMapper - http://automapper.org/
+
+#API Url's
+~/api/[employee]/
+~/api/[employee]/GetAll
+~/api/[employee]/GetById/1
+~/api/[employee]/Add
+~/api/[employee]/Delete
+~/api/[employee]/DeleteById/1
+~/api/[employee]/Update
