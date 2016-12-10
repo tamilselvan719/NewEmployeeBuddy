@@ -42,7 +42,7 @@ An end-to-end RESTful service using ASP.NET WebAPI, C#, Dependency Injection usi
 <tr>
 <td>DELETE</td>
 <td>~/api/employee/DeleteById/1</td>
-<td>Deletes an Empoyee pasing the Employee Id</td>
+<td>Deletes an Employee pasing the Employee Id</td>
 </tr>
 <tr>
 <td>PUT</td>
