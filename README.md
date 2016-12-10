@@ -1,7 +1,7 @@
 # NewEmployeeBuddy - your first friend in the organisation.
 An end-to-end RESTful service using ASP.NET WebAPI, C#, Dependency Injection using AutoFac, Generic Repository Pattern, Unit of Work, AutoMapper, NUnit and Moq.  
 
-# Concepts highly used during the development:
+# Technologies Used:
 1. ASP.NET WEBAPI - https://www.asp.net/web-api
 2. REST - http://stackoverflow.com/questions/671118/what-exactly-is-restful-programming
 3. Dependency Injection - http://stackoverflow.com/questions/130794/what-is-dependency-injection
