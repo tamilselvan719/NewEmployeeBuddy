@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NewEmployeeBuddy.Data.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,7 @@ namespace NewEmployeeBuddy.Data.UnitOfWork
 {
     public interface IUnitOfWork
     {
+        IEmployeeRepository Employee { get; }
+        void Save();
     }
 }

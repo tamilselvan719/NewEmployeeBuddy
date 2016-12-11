@@ -1,32 +1,28 @@
 ﻿using NewEmployeeBuddy.API.Filters;
-using NewEmployeeBuddy.Data;
-using NewEmployeeBuddy.Data.Repository;
-using NewEmployeeBuddy.Data.Repository.Base;
-using NewEmployeeBuddy.Entities.DataTransferObjects;
+using NewEmployeeBuddy.Data.Service;
+using NewEmployeeBuddy.Entities.DataTransferObjects.Employee;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Web.Http;
 
 namespace NewEmployeeBuddy.API.Controllers
 {
-    [RoutePrefix("api/[employee]")]
+    [RoutePrefix("api/employee")]
     public class EmployeeController : ApiController
     {
         #region Properties
-        //Replace with an IOC container (Instance created using Unity Container at UnityConfig.cs in App_Start)
-        private readonly IRepository<NewEmployee> _repository;
+        private readonly INEBService _service;
         #endregion
 
         #region Constructor
         /// <summary>
         /// Parameterized Constructor: 
-        /// Used when someone access this controller by passing the IRepository<NewEmployee> instance
+        /// Used when someone access this controller by passing the INEBService() instance
         /// </summary>
         /// <param name="repository"></param>
-        public EmployeeController(IRepository<NewEmployee> repository)
+        public EmployeeController(INEBService service)
         {
-            _repository = repository;
+            _service = service;
         }
 
         /// <summary>
@@ -35,49 +31,19 @@ namespace NewEmployeeBuddy.API.Controllers
         /// </summary>
         public EmployeeController() 
         {
-            this._repository = new EmpRepository(new NewEmployeeDbContext());
+            _service = new NEBService();
         }
         #endregion
 
         #region Action Methods
         [HttpGet]
-        [ActionName("GetAll")]
+        [ActionName("GetAll") Route("GetAll")]
         public IHttpActionResult Get()
         {
             try
             {
-                var response = new List<Employee>();
-                Employee empResponse;
-                var allEmployees = _repository.GetAll();
-
-                foreach (var employee in allEmployees)
-                {
-                    if (employee.IsActive)
-                    {
-                        empResponse = new Employee();
-
-                        //Code Refactoring using AutoMapper
-                       // Employee empResponse1 = new Employee();
-                        //empResponse1 = Mapper.Map<NewEmployee, Employee>(employee);
-
-                        empResponse.Id = employee.Id;
-                        empResponse.FirstName = employee.FirstName;
-                        empResponse.MiddleName = employee.MiddleName;
-                        empResponse.LastName = employee.LastName;
-                        empResponse.Gender = employee.Gender;
-                        empResponse.DateOfBirth = employee.DateOfBirth;
-                        empResponse.PhoneNumber = employee.PhoneNumber;
-                        empResponse.MobileNumber = employee.MobileNumber;
-                        empResponse.EmailAddress = employee.EmailAddress;
-                        empResponse.Address = employee.Address;
-                        empResponse.PinCode = employee.PinCode;
-                        empResponse.City = employee.City;
-                        empResponse.State = employee.State;
-                        empResponse.Country = employee.Country;
-                        response.Add(empResponse);
-                    }
-                }
-                return Ok(response);
+                var allEmployees = _service.GetAllEmployees();
+                return Ok(allEmployees);
             }
             catch (Exception ex)
             {
@@ -90,39 +56,23 @@ namespace NewEmployeeBuddy.API.Controllers
         }
 
         [HttpGet]
-        [ActionName("GetById")]
-        public IHttpActionResult Get(string phoneNumber)
+        [ActionName("GetById") Route("GetById")]
+        public IHttpActionResult Get(Guid employeeId)
         {
             try
             {
-                if (!string.IsNullOrEmpty(phoneNumber))
+                if (!Guid.Equals(employeeId, Guid.Empty))
                 {
-                    var employee = _repository.GetById(phoneNumber);
-                    if (employee != null && employee.IsActive)
-                    {
-                        Employee empResponse = new Employee();
-                        empResponse.Id = employee.Id;
-                        empResponse.FirstName = employee.FirstName;
-                        empResponse.MiddleName = employee.MiddleName;
-                        empResponse.LastName = employee.LastName;
-                        empResponse.Gender = employee.Gender;
-                        empResponse.DateOfBirth = employee.DateOfBirth;
-                        empResponse.PhoneNumber = employee.PhoneNumber;
-                        empResponse.MobileNumber = employee.MobileNumber;
-                        empResponse.EmailAddress = employee.EmailAddress;
-                        empResponse.Address = employee.Address;
-                        empResponse.PinCode = employee.PinCode;
-                        empResponse.City = employee.City;
-                        empResponse.State = employee.State;
-                        empResponse.Country = employee.Country;
-                        return Ok(empResponse);
-                    }
+                    var employee = _service.GetEmployeeByID(employeeId);
+                    
+                    if (employee != null)
+                        return Ok(employee);
                     else
-                        return BadRequest("Client not active");
+                        return NotFound();
                 }
                 else
                 {
-                    return BadRequest();
+                    return BadRequest("The Employee ID is invalid");
                 }
             }
             catch (Exception ex)
@@ -137,44 +87,17 @@ namespace NewEmployeeBuddy.API.Controllers
         }
 
         [HttpPost]
-        [ActionName("Add")]
+        [ActionName("Add") Route("Add")]
         [ModelValidator]
-        public IHttpActionResult Post([FromBody] Employee employee)
+        public IHttpActionResult Post([FromBody] EmployeeDTO employee)
         {
             try
             {
-                var result = false;
-                if (employee != null)
-                {
-                    var emp = new NewEmployee();
-                    emp.Id = Guid.NewGuid();
-                    emp.FirstName = employee.FirstName;
-                    emp.MiddleName = employee.MiddleName;
-                    emp.LastName = employee.LastName;
-                    emp.Gender = employee.Gender;
-                    emp.DateOfBirth = Convert.ToDateTime(employee.DateOfBirth);
-                    emp.PhoneNumber = employee.PhoneNumber;
-                    emp.MobileNumber = employee.MobileNumber;
-                    emp.EmailAddress = employee.EmailAddress;
-                    emp.Address = employee.Address;
-                    emp.PinCode = employee.PinCode;
-                    emp.City = employee.City;
-                    emp.State = employee.State;
-                    emp.Country = employee.Country;
-                    emp.IsActive = true;
-                    emp.Id = Guid.NewGuid();
-                    emp.CreatedBy = "System";
-                    emp.CreatedOn = DateTime.Now;
-                    emp.UpdatedBy = "";
-                    emp.UpdatedOn = DateTime.Now;
-                    result = _repository.Add(emp);
-                    return Created("Database", result);
-                }
-                else
-                {
+                if (employee == null)
                     return BadRequest();
-                }
 
+                    _service.AddEmployee(employee);
+                    return Created("Employee Created Successfully.", true);
             }
             catch (Exception ex)
             {
@@ -187,38 +110,16 @@ namespace NewEmployeeBuddy.API.Controllers
         }
 
         [HttpDelete]
-        [ActionName("Delete")]
+        [ActionName("Delete") Route("Delete")]
         [ModelValidator]
-        public IHttpActionResult Delete([FromBody] Employee employee)
+        public IHttpActionResult Delete([FromBody] EmployeeDTO employee)
         {
             try
             {
-                var result = false;
                 if (employee != null)
                 {
-                    var emp = new NewEmployee();
-                    emp.Id = employee.Id;
-                    emp.FirstName = employee.FirstName;
-                    emp.MiddleName = employee.MiddleName;
-                    emp.LastName = employee.LastName;
-                    emp.Gender = employee.Gender;
-                    emp.DateOfBirth = employee.DateOfBirth;
-                    emp.PhoneNumber = employee.PhoneNumber;
-                    emp.MobileNumber = employee.MobileNumber;
-                    emp.EmailAddress = employee.EmailAddress;
-                    emp.Address = employee.Address;
-                    emp.PinCode = employee.PinCode;
-                    emp.City = employee.City;
-                    emp.State = employee.State;
-                    emp.Country = employee.Country;
-                    emp.IsActive = true;
-                    emp.Id = Guid.NewGuid();
-                    emp.CreatedBy = "System";
-                    emp.CreatedOn = DateTime.Now;
-                    emp.UpdatedBy = "";
-                    emp.UpdatedOn = DateTime.Now;
-                    result = _repository.Delete(emp);
-                    return Ok(result);
+                    _service.DeleteEmployee(employee);
+                    return Ok(true);
                 }
                 else
                 {
@@ -236,16 +137,15 @@ namespace NewEmployeeBuddy.API.Controllers
         }
 
         [HttpDelete]
-        [ActionName("DeleteById")]
-        public IHttpActionResult Delete(string phoneNumber)
+        [ActionName("DeleteById") Route("DeleteById")]
+        public IHttpActionResult Delete(Guid employeeID)
         {
             try
             {
-                var response = false;
-                if (!string.IsNullOrEmpty(phoneNumber))
+                if (!Guid.Equals(employeeID, Guid.Empty))
                 {
-                    response = _repository.DeleteById(phoneNumber);
-                    return Ok(response);
+                    _service.DeleteEmployeeByID(employeeID);
+                    return Ok(true);
                 }
                 else
                 {
@@ -263,32 +163,17 @@ namespace NewEmployeeBuddy.API.Controllers
         }
 
         [HttpPut]
-        [ActionName("Update")]
+        [ActionName("Update") Route("Update")]
         [ModelValidator]
-        public IHttpActionResult Put([FromBody] Employee employee)
+        [System.Web.Mvc.ValidateAntiForgeryToken]
+        public IHttpActionResult Put([FromBody] EmployeeDTO employee)
         {
             try
             {
-                var result = false;
                 if (employee != null)
                 {
-                    var emp = new NewEmployee();
-                    //emp.Id = employee.Id;
-                    emp.FirstName = employee.FirstName;
-                    emp.MiddleName = employee.MiddleName;
-                    emp.LastName = employee.LastName;
-                    emp.Gender = employee.Gender;
-                    emp.DateOfBirth = Convert.ToDateTime(employee.DateOfBirth);
-                    emp.PhoneNumber = employee.PhoneNumber;
-                    emp.MobileNumber = employee.MobileNumber;
-                    emp.EmailAddress = employee.EmailAddress;
-                    emp.Address = employee.Address;
-                    emp.PinCode = employee.PinCode;
-                    emp.City = employee.City;
-                    emp.State = employee.State;
-                    emp.Country = employee.Country;
-                    result = _repository.Update(emp);
-                    return Ok(result);
+                    _service.UpdateEmployee(employee);
+                    return Ok(true);
                 }
                 else
                 {

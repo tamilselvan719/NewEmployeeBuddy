@@ -8,13 +8,12 @@ namespace NewEmployeeBuddy.Data.Repository.Base
     public class RepositoryBase<T> : IRepository<T> 
         where T: class
     {
-
-        /// <summary>
-        /// Constructor Injection
-        /// </summary>
+        #region Properties
         private DbContext DbContext { get; set; }
         private DbSet<T> DbSet { get; set; }
+        #endregion
 
+        #region Constructor
         public RepositoryBase(DbContext dbContext)
         {
             if (dbContext == null)
@@ -23,7 +22,9 @@ namespace NewEmployeeBuddy.Data.Repository.Base
             DbContext = dbContext;
             DbSet = DbContext.Set<T>();
         }
+        #endregion
 
+        #region Methods
         /// <summary>
         /// To add a new record in New Employee table
         /// </summary>
@@ -115,6 +116,6 @@ namespace NewEmployeeBuddy.Data.Repository.Base
             entry.State = EntityState.Modified;
             return true;
         }
-
+        #endregion
     }
 }

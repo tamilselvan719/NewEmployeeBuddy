@@ -14,7 +14,7 @@ namespace NewEmployeeBuddy.API
         protected void Application_Start()
         {
             //To specify the initializer class that will seed the initial data everytime a model changes
-            Database.SetInitializer(new DbContextInitializer());
+            //Database.SetInitializer(new DbContextInitializer());
             GlobalConfiguration.Configure(WebApiConfig.Register);
         }
     }

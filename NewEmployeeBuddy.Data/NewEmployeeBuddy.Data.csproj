@@ -52,6 +52,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -90,23 +91,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataContext\DbContextInitializer.cs" />
-    <Compile Include="Entities\BaseEntities\EntityBase.cs" />
-    <Compile Include="Entities\NewEmployee.cs" />
+    <Compile Include="Configurations\EmployeeConfiguration.cs" />
+    <Compile Include="Entities\Employee\Address.cs" />
+    <Compile Include="Entities\Base\BaseEntity.cs" />
+    <Compile Include="Entities\Employee\Contact.cs" />
+    <Compile Include="Entities\Employee\Employee.cs" />
     <Compile Include="DataContext\NewEmployeeDbContext.cs" />
-    <Compile Include="Migrations\201610231219479_Initial.cs" />
-    <Compile Include="Migrations\201610231219479_Initial.Designer.cs">
-      <DependentUpon>201610231219479_Initial.cs</DependentUpon>
+    <Compile Include="Entities\Employee\Payroll.cs" />
+    <Compile Include="Migrations\201612111256028_Initial.cs" />
+    <Compile Include="Migrations\201612111256028_Initial.Designer.cs">
+      <DependentUpon>201612111256028_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\EmployeeRepository.cs" />
-    <Compile Include="Repository\EmpRepository.cs" />
+    <Compile Include="Repository\Employee\EmployeeRepository.cs" />
+    <Compile Include="Repository\Employee\IEmployeeRepository.cs" />
     <Compile Include="Repository\Base\IRepository.cs" />
     <Compile Include="Repository\Base\RepositoryBase.cs" />
-    <Compile Include="SampleData\DataInitializer.cs" />
-    <Compile Include="Service\INewEmployeeBuddyService.cs" />
-    <Compile Include="Service\NewEmployeeBuddyService.cs" />
+    <Compile Include="DataContext\DataInitializer.cs" />
+    <Compile Include="Service\INEBService.cs" />
+    <Compile Include="Service\NEBService.cs" />
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="UnitOfWork\UnitOfWork.cs" />
   </ItemGroup>
@@ -115,8 +119,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201610231219479_Initial.resx">
-      <DependentUpon>201610231219479_Initial.cs</DependentUpon>
+    <ProjectReference Include="..\NewEmployeeBuddy.Entities\NewEmployeeBuddy.Entities.csproj">
+      <Project>{C2475780-304E-4219-A148-C32F5E8E2BEE}</Project>
+      <Name>NewEmployeeBuddy.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201612111256028_Initial.resx">
+      <DependentUpon>201612111256028_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -42,7 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataTransferObjects\Employee.cs" />
+    <Compile Include="DataTransferObjects\Employee\EmployeeAddressDTO.cs" />
+    <Compile Include="DataTransferObjects\Employee\EmployeeContactDTO.cs" />
+    <Compile Include="DataTransferObjects\Employee\EmployeeDTO.cs" />
+    <Compile Include="DataTransferObjects\Employee\EmployeePayrollDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

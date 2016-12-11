@@ -13,7 +13,7 @@ namespace NewEmployeeBuddy.Data.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201610231219479_Initial"; }
+            get { return "201612111256028_Initial"; }
         }
         
         string IMigrationMetadata.Source

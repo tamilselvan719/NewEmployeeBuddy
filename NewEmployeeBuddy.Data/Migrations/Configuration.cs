@@ -1,6 +1,5 @@
 namespace NewEmployeeBuddy.Data.Migrations
 {
-    using SampleData;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -13,17 +12,20 @@ namespace NewEmployeeBuddy.Data.Migrations
             AutomaticMigrationsEnabled = false;
         }
 
-        /// <summary>
-        /// This method is used to seed data into the tables
-        /// </summary>
-        /// <param name="context"></param>
         protected override void Seed(NewEmployeeBuddy.Data.NewEmployeeDbContext context)
         {
-            // Add initial data to Employee table
-            foreach (var data in DataInitializer.EmployeeInitialData())
-            {
-                context.NewEmployeeDetails.AddOrUpdate(data);
-            }
+            //  This method will be called after migrating to the latest version.
+
+            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
+            //  to avoid creating duplicate seed data. E.g.
+            //
+            //    context.People.AddOrUpdate(
+            //      p => p.FullName,
+            //      new Person { FullName = "Andrew Peters" },
+            //      new Person { FullName = "Brice Lambson" },
+            //      new Person { FullName = "Rowan Miller" }
+            //    );
+            //
         }
     }
 }
