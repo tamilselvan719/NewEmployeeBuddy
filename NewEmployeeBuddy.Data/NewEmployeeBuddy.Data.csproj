@@ -108,7 +108,7 @@
     <Compile Include="Repository\Employee\IEmployeeRepository.cs" />
     <Compile Include="Repository\Base\IRepository.cs" />
     <Compile Include="Repository\Base\RepositoryBase.cs" />
-    <Compile Include="DataContext\DataInitializer.cs" />
+    <Compile Include="DataContext\NewEmployeeDatabaseInitializer.cs" />
     <Compile Include="Service\INEBService.cs" />
     <Compile Include="Service\NEBService.cs" />
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />

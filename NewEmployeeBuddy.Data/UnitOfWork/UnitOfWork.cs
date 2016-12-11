@@ -9,36 +9,34 @@ namespace NewEmployeeBuddy.Data.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
-
         #region Properties
         private bool _disposed = false;
-        private readonly NewEmployeeDbContext _dbContext;
-        private IEmployeeRepository _employee = null;
+        private NewEmployeeDbContext _dbContext;
         #endregion
 
         #region Constructor
         public UnitOfWork()
         {
-            _dbContext = new NewEmployeeDbContext();
-
+            CreateDbContext();
         }
         #endregion
 
         #region Repositories
-        public IEmployeeRepository Employee {
-            get
-            {
-                if (_employee == null)
-                {
-                    _employee = new EmployeeRepository(_dbContext);
-                }
-                return _employee;
-            }
-        }
+        public IEmployeeRepository Employee { get { return new EmployeeRepository(_dbContext); } }
         #endregion
 
-        #region Save 
-        public void Save()
+        #region Methods
+        protected void CreateDbContext()
+        {
+            _dbContext = new NewEmployeeDbContext();
+
+            //Todo
+            //_dbContext.Configuration.ProxyCreationEnabled = false;
+            //_dbContext.Configuration.LazyLoadingEnabled = false;
+            //_dbContext.Configuration.ValidateOnSaveEnabled = false;
+        } 
+
+        public void Commit()
         {
             _dbContext.SaveChanges();
         }

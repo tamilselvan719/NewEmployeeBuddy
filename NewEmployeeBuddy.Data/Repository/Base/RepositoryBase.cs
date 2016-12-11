@@ -5,12 +5,11 @@ using System.Data.Entity.Infrastructure;
 
 namespace NewEmployeeBuddy.Data.Repository.Base
 {
-    public class RepositoryBase<T> : IRepository<T> 
-        where T: class
+    public class RepositoryBase<T> : IRepository<T> where T: class
     {
         #region Properties
-        private DbContext DbContext { get; set; }
-        private DbSet<T> DbSet { get; set; }
+        protected DbContext DbContext { get; set; }
+        protected DbSet<T> DbSet { get; set; }
         #endregion
 
         #region Constructor

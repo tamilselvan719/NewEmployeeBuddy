@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace NewEmployeeBuddy.Data.Repository.Base
 {
     /// <summary>
     /// A generic repository interface (concept of generic classes) which takes a Model as class and operates accordingly
     /// </summary>
-    /// <typeparam name="T">T is a generic class that will be passed on runtime</typeparam>
+    /// <typeparam name="T">T is a generic class which will be passed on runtime</typeparam>
     public interface IRepository<T> where T : class
     {
         IEnumerable<T> GetAll();

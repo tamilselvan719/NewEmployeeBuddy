@@ -4,10 +4,11 @@ using NewEmployeeBuddy.Data.Entities.Employee;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NewEmployeeBuddy.Data.Repository.Base;
 
 namespace NewEmployeeBuddy.Data.Repository
 {
-    public interface IEmployeeRepository
+    public interface IEmployeeRepository: IRepository<Employee>
     {
         IEnumerable<Employee> GetAllEmployees();
         Employee GetEmployeeDetailsByID(Guid employeeID);

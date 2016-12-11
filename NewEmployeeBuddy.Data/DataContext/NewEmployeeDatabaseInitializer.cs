@@ -11,7 +11,9 @@ namespace NewEmployeeBuddy.Data.DataContext
     /// <summary>
     /// This class is used to seed the initial data into the database
     /// </summary>
-    public class DataInitializer: CreateDatabaseIfNotExists<NewEmployeeDbContext>
+    public class NewEmployeeDatabaseInitializer:
+        //CreateDatabaseIfNotExists<NewEmployeeDbContext>
+        DropCreateDatabaseIfModelChanges<NewEmployeeDbContext>
     {
         #region Seed Method
         /// <summary>

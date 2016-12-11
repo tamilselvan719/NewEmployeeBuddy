@@ -35,12 +35,13 @@ namespace NewEmployeeBuddy.Data
         #endregion
 
         #region Constructor
+        public NewEmployeeDbContext() : base(nameOrConnectionString: NewEmployeeDbContext.ConnectionStringName) { }
+
+        //To seed data using the Database Initializer class
         static NewEmployeeDbContext()
         {
-            Database.SetInitializer(new DataInitializer());
+            Database.SetInitializer(new NewEmployeeDatabaseInitializer());
         }
-
-        public NewEmployeeDbContext() : base(nameOrConnectionString: NewEmployeeDbContext.ConnectionStringName) { }
         #endregion
 
         #region Methods
@@ -57,14 +58,13 @@ namespace NewEmployeeBuddy.Data
             //This statement is used to register model configurations using FluentAPI for data annotations
             //modelBuilder.Configurations.Add(new EmployeeConfiguration());
 
-            //This statement will restrict Entity Framework to pluralize table names by default.
+            //This statement is used in case you have already created a table in database and wants to map your Model with it.
             modelBuilder.Entity<Employee>().ToTable("tbl_Employee");
             modelBuilder.Entity<Address>().ToTable("tbl_Address");
             modelBuilder.Entity<Contact>().ToTable("tbl_Contact");
             modelBuilder.Entity<Payroll>().ToTable("tbl_Payroll");
 
-            //This statement is used in case you have already created a table in database
-            //and wants to map your Model with it
+            //This statement will restrict Entity Framework to pluralize table names by default.
             modelBuilder.Conventions.Remove<PluralizingEntitySetNameConvention>();
         }
         #endregion

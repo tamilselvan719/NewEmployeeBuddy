@@ -57,7 +57,7 @@ namespace NewEmployeeBuddy.Data.Service
                 addEmployee.UpdatedOn = DateTime.MinValue;
 
                 result = _unitOfWork.Employee.AddEmployeeDetails(addEmployee);
-                _unitOfWork.Save();
+                _unitOfWork.Commit();
                 return result;
             }
             catch (Exception ex)
@@ -93,7 +93,7 @@ namespace NewEmployeeBuddy.Data.Service
                 deleteEmployee.AddressId = employee.Address.AddressId;
 
                  result = _unitOfWork.Employee.DeleteEmployeeDetails(deleteEmployee);
-                _unitOfWork.Save();
+                _unitOfWork.Commit();
                 return result;
             }
             catch (Exception ex)
@@ -115,7 +115,7 @@ namespace NewEmployeeBuddy.Data.Service
                     return result;
 
                  result = _unitOfWork.Employee.DeleteEmployeeDetailsByID(employeeID);
-                _unitOfWork.Save();
+                _unitOfWork.Commit();
                 return result;
             }
             catch (Exception ex)
@@ -269,7 +269,7 @@ namespace NewEmployeeBuddy.Data.Service
                 updateEmployee.AddressId = employee.Address.AddressId;
 
                 result = _unitOfWork.Employee.UpdateEmployeeDetails(updateEmployee);
-                _unitOfWork.Save();
+                _unitOfWork.Commit();
                 return result;
             }
             catch (Exception ex)

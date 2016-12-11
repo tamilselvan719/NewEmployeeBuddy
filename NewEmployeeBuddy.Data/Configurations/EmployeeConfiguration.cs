@@ -31,6 +31,7 @@ namespace NewEmployeeBuddy.Data.Configurations
             this.Property(p => p.CreatedOn).HasColumnType("datetime");
             this.Property(p => p.UpdatedBy).IsUnicode();
             this.Property(p => p.UpdatedOn).HasColumnType("datetime");
+
         }
 }
 }

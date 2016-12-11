@@ -10,6 +10,6 @@ namespace NewEmployeeBuddy.Data.UnitOfWork
     public interface IUnitOfWork
     {
         IEmployeeRepository Employee { get; }
-        void Save();
+        void Commit();
     }
 }
